@@ -9,5 +9,11 @@
     @return 0 is ok, -1 error
 */
 int utn_getEntero(int*pEdad,int reintentos,char* msg,char*msgError,int max,int min);
+/**
+    utn_getchar:valida una entrada al usuario en formato char
+    @param pResultado: puntero donde guardar el char obtenido
+    @return 0 is ok, -1 error
+*/
+int utn_getChar(char*pResultado);
 
 #endif // UTN_H_INCLUDED

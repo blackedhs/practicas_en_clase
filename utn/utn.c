@@ -3,6 +3,8 @@
 #include <stdlib.h>
 
 static int getInt(int*resultado);
+static int getFloat(float*pResultado);
+
 
 int utn_getEntero(int*pEdad,int reintentos,char* msg,char*msgError,int max,int min){
     int retorno = -1;
@@ -32,10 +34,28 @@ int utn_getEntero(int*pEdad,int reintentos,char* msg,char*msgError,int max,int m
     }
     return retorno;
 }
+int utn_getChar(char*pResultado){
+    char aux;
+    int retorno=-1;
+        if (scanf("%c",&aux)==1){
+            *resultado=aux;
+            retorno=0;
+    }
+    return retorno;
+}
 static int getInt(int*resultado){
     int aux;
     int retorno=-1;
         if (scanf("%d",&aux)==1){
+            *resultado=aux;
+            retorno=0;
+    }
+    return retorno;
+}
+static int getFloat(float*pResultado){
+    float aux;
+    int retorno=-1;
+        if (scanf("%f",&aux)==1){
             *resultado=aux;
             retorno=0;
     }
