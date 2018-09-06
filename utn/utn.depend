@@ -11,3 +11,15 @@
 	<stdio_ext.h>
 	<stdlib.h>
 
+1536207088 source:/home/blackedhs/Programacion/practicas_en_clase/utn/utn.c
+	"utn.h"
+	<stdio_ext.h>
+	<stdlib.h>
+
+1536204211 /home/blackedhs/Programacion/practicas_en_clase/utn/utn.h
+
+1536204332 source:/home/blackedhs/Programacion/practicas_en_clase/utn/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"utn.h"
+
