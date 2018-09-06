@@ -1,3 +1,4 @@
+
 #ifndef UTN_H_INCLUDED
 #define UTN_H_INCLUDED
 /**
@@ -17,3 +18,8 @@ int utn_getEntero(int*pEdad,int reintentos,char* msg,char*msgError,int max,int m
 int utn_getChar(char*pResultado);
 
 #endif // UTN_H_INCLUDED
+int mostrarArray(int * pArray,int limite);
+
+int calcularNumeroMaximo(int *pArray,int limite,int *maximo);
+
+int initArray(int * pArray,int limite,int valor);
