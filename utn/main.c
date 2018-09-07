@@ -6,7 +6,7 @@
 int main()
 {
     int i;
-    float promedio;
+    //float promedio;
     int edades[CANTIDAD_EMPLEADOS];
     utn_initArray(edades,CANTIDAD_EMPLEADOS,CARGA_INVALIDA);
 
@@ -14,8 +14,12 @@ int main()
         utn_getEntero(&edades[i],3,"ingrese la edad:","La edad ingresada es erronea\n",0,199);
     }
     utn_mostrarArray(edades,CANTIDAD_EMPLEADOS);
-    utn_promedioArray(edades,CANTIDAD_EMPLEADOS,&promedio,CARGA_INVALIDA);
-    printf("\n\nEl promedio de edades es : %.2f",promedio);
+    utn_ordenarArray(edades,CANTIDAD_EMPLEADOS,0);
+    printf("\n\n");
+    utn_mostrarArray(edades,CANTIDAD_EMPLEADOS);
+    //utn_promedioArray(edades,CANTIDAD_EMPLEADOS,&promedio,CARGA_INVALIDA);
+    //printf("\n\nEl promedio de edades es : %.2f",promedio);
+
 
     return 0;
 }

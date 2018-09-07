@@ -66,3 +66,13 @@ return: retorna -1 si el array esta cargado solo de valores de omision, 0 is ok
 */
 int utn_promedioArray(int*pArray,int limite,float *promedio,int valorOmision);
 #endif // UTN_H_INCLUDED
+int esNumero(char *pCadena);
+
+int getInt(int*resultado);
+/** Ordenar array de mayor a menor o de mayor a menor
+@parametros
+pArray: puntero al array
+limite: limite del array
+flagMaxMin: colocar 1 para ordenar de menor a mayor o 0 de mayor a menor
+*//
+int utn_ordenarArray(int *pArray,int limite,int flagMaxMin);

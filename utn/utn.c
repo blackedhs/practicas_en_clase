@@ -2,12 +2,13 @@
 #include "utn.h"
 #include <stdio_ext.h>
 #include <stdlib.h>
+#include <string.h>
 
-static int getInt(int*resultado);
+int getInt(int*resultado);
 static int getFloat(float*pResultado);
 
 
-int utn_getEntero(int*pEdad,int reintentos,char* msg,char*msgError,int min,int max){
+int utn_getEntero(int*pEntero,int reintentos,char* msg,char*msgError,int min,int max){
     int retorno = -1;
     int auxiliarEdad;
 
@@ -16,9 +17,9 @@ int utn_getEntero(int*pEdad,int reintentos,char* msg,char*msgError,int min,int m
         printf("%s",msg);
         if(getInt(&auxiliarEdad) == 0)
         {
-            if(auxiliarEdad >= min && auxiliarEdad < max)
+           if(auxiliarEdad >= min && auxiliarEdad < max)
             {
-                *pEdad = auxiliarEdad;
+                *pEntero = auxiliarEdad;
                 retorno = 0;
                 break;
             }
@@ -44,12 +45,39 @@ int utn_getChar(char*pResultado){
     }
     return retorno;
 }
-static int getInt(int*resultado){
-    int aux;
+int getInt(int*resultado){
+
+    /**int aux;
     int retorno=-1;
         if (scanf("%d",&aux)==1){
             *resultado=aux;
             retorno=0;
+    }
+    return retorno;
+    */
+    char cadena[64];
+    scanf("%s",cadena);
+    int aux;
+    if(!esNumero(cadena)){
+        aux=atoi(cadena);
+        *resultado=aux;
+    }
+    return 0;
+}
+int esNumero(char *pCadena){
+    int retorno=0;
+    int i=0;
+    char aux;
+    aux= pCadena[i];
+    while(aux != 0)
+    {
+        if (aux <48 || aux >57)
+        {
+            retorno=-1;
+            break;
+        }
+        i++;
+        aux = pCadena[i];
     }
     return retorno;
 }
@@ -155,6 +183,33 @@ int utn_promedioArray(int*pArray,int limite,float *promedio,int valorOmision){
     }
     if(retorno==0){
         *promedio=acumulador/(limite-cantidadValorOmision);
+    }
+    return retorno;
+}
+int utn_ordenarArray(int *pArray,int limite,int flagMaxMin)
+{
+    int i=0;
+    int aux;
+    int retorno=-1;
+    int flag=1;
+
+    if(*pArray!=NULL&&limite>0){
+        retorno=0;
+        aux=pArray[i];
+        while(flag==1){
+            flag=0;
+            for(i=0;i<(limite-1);i++){
+                if( (flagMaxMin==1&& pArray[i]>pArray[i+1]) ||
+                    (flagMaxMin==0&&pArray[i]<pArray[i+1]))
+                {
+                    flag=1;
+                    aux=pArray[i];
+                    pArray[i]=pArray[i+1];
+                    pArray[i+1]=aux;
+                }
+            }
+        }
+
     }
     return retorno;
 }

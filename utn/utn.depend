@@ -23,3 +23,16 @@
 	<stdlib.h>
 	"utn.h"
 
+1536281269 source:/home/alumno/Escritorio/fede/practicas_en_clase/utn/main.c
+	<stdio_ext.h>
+	<stdlib.h>
+	"utn.h"
+
+1536281083 /home/alumno/Escritorio/fede/practicas_en_clase/utn/utn.h
+
+1536281401 source:/home/alumno/Escritorio/fede/practicas_en_clase/utn/utn.c
+	"utn.h"
+	<stdio_ext.h>
+	<stdlib.h>
+	<string.h>
+
