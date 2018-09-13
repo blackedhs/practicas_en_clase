@@ -74,5 +74,6 @@ int getInt(int*resultado);
 pArray: puntero al array
 limite: limite del array
 flagMaxMin: colocar 1 para ordenar de menor a mayor o 0 de mayor a menor
-*//
+*/
 int utn_ordenarArray(int *pArray,int limite,int flagMaxMin);
+int utn_getFloat(float*pFloat,int reintentos,char* msg,char*msgError,float min,float max);

@@ -5,7 +5,8 @@
 #include <string.h>
 
 int getInt(int*resultado);
-static int getFloat(float*pResultado);
+static int getFloat(float*pBuffer);
+static int getString(char* bufferString);
 
 
 int utn_getEntero(int*pEntero,int reintentos,char* msg,char*msgError,int min,int max){
@@ -33,6 +34,26 @@ int utn_getEntero(int*pEntero,int reintentos,char* msg,char*msgError,int min,int
             printf("%s",msgError);
             __fpurge(stdin);
         }
+    }
+    return retorno;
+}
+int utn_getFloat(float*pFloat,int reintentos,char* msg,char*msgError,float min,float max){
+    int retorno = -1;
+    float buffer;
+
+    if(pFloat!=NULL&& msg !=NULL && msgError!=NULL && min<= max && reintentos>=0){
+        do
+        {
+            reintentos--;
+            printf("\n%s: ",msg);
+            if(getFloat(&buffer) == 0 && buffer >= min && buffer<=max){
+                    *pFloat= buffer;
+                    retorno = 0;
+                    break;
+            }else{
+                printf("\n %s ",msgError);
+            }
+        }while(reintentos > 0);
     }
     return retorno;
 }
@@ -81,12 +102,47 @@ int esNumero(char *pCadena){
     }
     return retorno;
 }
-static int getFloat(float*pResultado){
-    float aux;
+int isFloat(char* pBuffer){
     int retorno=-1;
-        if (scanf("%f",&aux)==1){
-            *pResultado=aux;
+    int i=0;
+    do{
+        if(*pBuffer+i==','){
+            *(pBuffer+i)='.';
+            i++;
+        }
+        if(*pBuffer+i<48||*pBuffer+i>57){
+        break;
+        }
+        i++;
+    }while (i<strlen(pBuffer));
+    if(i==strlen(pBuffer)){
+        retorno=0;
+    }
+    return retorno;
+}
+static int getString(char* pBuffer,int limite)
+{
+    char bufferString[4096];
+    int retorno =-1
+    if (pBuffer != NULL && limite >0){
+        __fpurge(stdin);
+        fgets(bufferString,sizeof(bufferString),stdin);
+        if (bufferString[strlen(bufferString)-1]=='\n'){
+            bufferString[strlen(bufferString)-1]='\0';
+        }
+        if(strlen(bufferString)<= limite){
+            strcpy(bufferString,pBuffer,limite);
             retorno=0;
+        }
+    }
+    return retorno;
+}
+static int getFloat(float*pBuffer){
+    char bufferString[200];
+    int retorno =-1;
+    if(getString(bufferString)==0 && isFloat(bufferString)==0){
+        *pBuffer=atof(bufferString);
+        retorno=0;
     }
     return retorno;
 }
