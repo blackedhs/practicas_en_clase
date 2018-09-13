@@ -4,36 +4,29 @@
 #include <stdlib.h>
 #include <string.h>
 
-int getInt(int*resultado);
 static int getFloat(float*pBuffer);
-static int getString(char* bufferString);
+static int getString(char* bufferString,int limite);
+static int isFloat(char* pBuffer);
+static int getInt(int*pBuffer);
+static int isInt(char *pBuffer);
 
-
-int utn_getEntero(int*pEntero,int reintentos,char* msg,char*msgError,int min,int max){
+int utn_getEntero(int* pEntero,int reintentos,char* msg,char*msgError,int min,int max){
     int retorno = -1;
-    int auxiliarEdad;
+    int buffer;
 
-    for(;reintentos > 0;reintentos--)
-    {
-        printf("%s",msg);
-        if(getInt(&auxiliarEdad) == 0)
+    if(pEntero!=NULL&& msg !=NULL && msgError!=NULL && min<= max && reintentos>=0){
+        do
         {
-           if(auxiliarEdad >= min && auxiliarEdad < max)
-            {
-                *pEntero = auxiliarEdad;
-                retorno = 0;
-                break;
+            reintentos--;
+            printf("\n%s: ",msg);
+            if(getInt(&buffer) == 0 && buffer >= min && buffer<=max){
+                    *pEntero= buffer;
+                    retorno = 0;
+                    break;
+            }else{
+                printf("\n%s",msgError);
             }
-            else
-            {
-                printf("%s",msgError);
-            }
-        }
-        else
-        {
-            printf("%s",msgError);
-            __fpurge(stdin);
-        }
+        }while(reintentos > 0);
     }
     return retorno;
 }
@@ -51,67 +44,27 @@ int utn_getFloat(float*pFloat,int reintentos,char* msg,char*msgError,float min,f
                     retorno = 0;
                     break;
             }else{
-                printf("\n %s ",msgError);
+                printf("\n%s",msgError);
             }
         }while(reintentos > 0);
     }
     return retorno;
 }
-int utn_getChar(char*pResultado){
-    char aux;
-    int retorno=-1;
-        if (scanf("%c",&aux)==1){
-            *pResultado=aux;
-            retorno=0;
+static int getInt(int* pBuffer){
+    char bufferString[200];
+    int retorno =-1;
+    if(getString(bufferString,200)==0 && isInt(bufferString)==0){
+        *pBuffer=atoi(bufferString);
+        retorno=0;
     }
     return retorno;
 }
-int getInt(int*resultado){
-
-    /**int aux;
-    int retorno=-1;
-        if (scanf("%d",&aux)==1){
-            *resultado=aux;
-            retorno=0;
-    }
-    return retorno;
-    */
-    char cadena[64];
-    scanf("%s",cadena);
-    int aux;
-    if(!esNumero(cadena)){
-        aux=atoi(cadena);
-        *resultado=aux;
-    }
-    return 0;
-}
-int esNumero(char *pCadena){
-    int retorno=0;
-    int i=0;
-    char aux;
-    aux= pCadena[i];
-    while(aux != 0)
-    {
-        if (aux <48 || aux >57)
-        {
-            retorno=-1;
-            break;
-        }
-        i++;
-        aux = pCadena[i];
-    }
-    return retorno;
-}
-int isFloat(char* pBuffer){
+static int isInt(char *pBuffer){
     int retorno=-1;
     int i=0;
     do{
-        if(*pBuffer+i==','){
-            *(pBuffer+i)='.';
-            i++;
-        }
-        if(*pBuffer+i<48||*pBuffer+i>57){
-        break;
+        if(*(pBuffer+i)<48||*(pBuffer+i)>57){
+                break;
         }
         i++;
     }while (i<strlen(pBuffer));
@@ -120,10 +73,30 @@ int isFloat(char* pBuffer){
     }
     return retorno;
 }
-static int getString(char* pBuffer,int limite)
-{
+static int isFloat(char* pBuffer){
+    int retorno=-1;
+    int i=0;
+    int contadorDePuntos=0;
+    do{
+        if(*(pBuffer+i)==','||*(pBuffer+i)=='.'){
+            *(pBuffer+i)='.';
+            contadorDePuntos++;
+            if(contadorDePuntos==2){
+                break;
+            }
+        }else if(*(pBuffer+i)<48||*(pBuffer+i)>57){
+                break;
+        }
+        i++;
+    }while (i<strlen(pBuffer));
+    if(i==strlen(pBuffer)){
+        retorno=0;
+    }
+    return retorno;
+}
+static int getString(char* pBuffer,int limite){
     char bufferString[4096];
-    int retorno =-1
+    int retorno =-1;
     if (pBuffer != NULL && limite >0){
         __fpurge(stdin);
         fgets(bufferString,sizeof(bufferString),stdin);
@@ -131,7 +104,7 @@ static int getString(char* pBuffer,int limite)
             bufferString[strlen(bufferString)-1]='\0';
         }
         if(strlen(bufferString)<= limite){
-            strcpy(bufferString,pBuffer,limite);
+            strncpy(pBuffer,bufferString,limite);
             retorno=0;
         }
     }
@@ -140,7 +113,7 @@ static int getString(char* pBuffer,int limite)
 static int getFloat(float*pBuffer){
     char bufferString[200];
     int retorno =-1;
-    if(getString(bufferString)==0 && isFloat(bufferString)==0){
+    if(getString(bufferString,200)==0 && isFloat(bufferString)==0){
         *pBuffer=atof(bufferString);
         retorno=0;
     }
@@ -181,7 +154,6 @@ int utn_initArray(int * pArray,int limite,int valor){
     }
     return retorno;
 }
-
 int utn_verificarNumeroEntero(int *pEntero,char* texto,char* textoError){
     int aux;
     printf("%s",texto);
@@ -192,7 +164,6 @@ int utn_verificarNumeroEntero(int *pEntero,char* texto,char* textoError){
     *pEntero=aux;
     return 0;
 }
-
 int utn_verificarNumeroFloat(float *pFloat,char* texto,char* textoError){
     float aux;
     printf("%s",texto);
@@ -203,7 +174,6 @@ int utn_verificarNumeroFloat(float *pFloat,char* texto,char* textoError){
     *pFloat=aux;
     return 0;
 }
-
 int utn_verificarNumeroChar(char *pChar,char* texto,char* textoError){
     char aux;
     printf("%s",texto);
@@ -222,7 +192,6 @@ int utn_cargaNumeroAleatoriosEnArrays(int* pArray,int len,int min, int max){
     }
     return 0;
 }
-
 int utn_promedioArray(int*pArray,int limite,float *promedio,int valorOmision){
     int i;
     int cantidadValorOmision=0;
@@ -242,8 +211,7 @@ int utn_promedioArray(int*pArray,int limite,float *promedio,int valorOmision){
     }
     return retorno;
 }
-int utn_ordenarArray(int *pArray,int limite,int flagMaxMin)
-{
+int utn_ordenarArray(int *pArray,int limite,int flagMaxMin){
     int i=0;
     int aux;
     int retorno=-1;

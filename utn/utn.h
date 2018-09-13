@@ -15,7 +15,6 @@ int utn_getEntero(int*pEdad,int reintentos,char* msg,char*msgError,int max,int m
     @param pResultado: puntero donde guardar el char obtenido
     @return 0 is ok, -1 error
 */
-int utn_getChar(char*pResultado);
 
 int utn_mostrarArray(int * pArray,int limite);
 
@@ -66,9 +65,6 @@ return: retorna -1 si el array esta cargado solo de valores de omision, 0 is ok
 */
 int utn_promedioArray(int*pArray,int limite,float *promedio,int valorOmision);
 #endif // UTN_H_INCLUDED
-int esNumero(char *pCadena);
-
-int getInt(int*resultado);
 /** Ordenar array de mayor a menor o de mayor a menor
 @parametros
 pArray: puntero al array

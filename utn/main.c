@@ -5,9 +5,9 @@
 #define CARGA_INVALIDA -1
 int main()
 {
-    float numeroFloat;
+    int numeroInt;
     //char nombres[15][50];
-    utn_getFloat(&numeroFloat,5,"numero","error Men",0,100);
-    printf("%s",numeroFloat);
+    utn_getEntero(&numeroInt,5,"numero","error Men",0,100);
+    printf("%d",numeroInt);
     return 0;
 }

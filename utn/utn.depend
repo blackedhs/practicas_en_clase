@@ -11,14 +11,15 @@
 	<stdio_ext.h>
 	<stdlib.h>
 
-1536207088 source:/home/blackedhs/Programacion/practicas_en_clase/utn/utn.c
+1536810867 source:/home/blackedhs/Programacion/practicas_en_clase/utn/utn.c
 	"utn.h"
 	<stdio_ext.h>
 	<stdlib.h>
+	<string.h>
 
-1536204211 /home/blackedhs/Programacion/practicas_en_clase/utn/utn.h
+1536810168 /home/blackedhs/Programacion/practicas_en_clase/utn/utn.h
 
-1536204332 source:/home/blackedhs/Programacion/practicas_en_clase/utn/main.c
+1536810115 source:/home/blackedhs/Programacion/practicas_en_clase/utn/main.c
 	<stdio_ext.h>
 	<stdlib.h>
 	"utn.h"
