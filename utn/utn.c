@@ -9,6 +9,7 @@ static int getString(char* bufferString,int limite);
 static int isFloat(char* pBuffer);
 static int getInt(int*pBuffer);
 static int isInt(char *pBuffer);
+static int isLetras(char*pBuffer);
 
 int utn_getEntero(int* pEntero,int reintentos,char* msg,char*msgError,int min,int max){
     int retorno = -1;
@@ -26,7 +27,7 @@ int utn_getEntero(int* pEntero,int reintentos,char* msg,char*msgError,int min,in
             }else{
                 printf("\n%s",msgError);
             }
-        }while(reintentos > 0);
+        }while(reintentos >= 0);
     }
     return retorno;
 }
@@ -46,7 +47,7 @@ int utn_getFloat(float*pFloat,int reintentos,char* msg,char*msgError,float min,f
             }else{
                 printf("\n%s",msgError);
             }
-        }while(reintentos > 0);
+        }while(reintentos >= 0);
     }
     return retorno;
 }
@@ -217,7 +218,7 @@ int utn_ordenarArray(int *pArray,int limite,int flagMaxMin){
     int retorno=-1;
     int flag=1;
 
-    if(*pArray!=NULL&&limite>0){
+    if(pArray!=NULL&&limite>0){
         retorno=0;
         aux=pArray[i];
         while(flag==1){
@@ -236,4 +237,49 @@ int utn_ordenarArray(int *pArray,int limite,int flagMaxMin){
 
     }
     return retorno;
+}
+int utn_getLetras(char *pBuffer,int limite,int reintentos){
+    int retorno=-1;
+    char buffer[limite];
+    if(pBuffer!=NULL && limite >0 && reintentos >=0){
+        do{
+            reintentos--;
+            if(getString(&buffer,limite)==0 && isLetras(buffer)==0){
+                strncpy(pBuffer,buffer,limite);
+                retorno=0;
+                break;
+            }
+        }while(reintentos>=0);
+    }
+    return retorno;
+}
+static int isLetras(char*pBuffer){
+    int retorno=-1;
+    int i=0;
+    if(pBuffer!=NULL){
+        do{
+            if((*(pBuffer+i)<65||*(pBuffer+i)>90) && (*(pBuffer+i)<97||*(pBuffer+i)>122)){
+                break;
+            }
+            i++;
+        }while(i<strlen(pBuffer));
+        if(i==strlen(pBuffer)){
+            retorno=0;
+        }
+    }
+    return retorno;
+}
+int ordenarInsertion(int* pArray,int limite){
+    int i,j;
+    int temp;
+    for (i=1;i<limite;i++){
+        temp=*(pArray+i);
+        j=i-1;
+        while (j>=0 && temp<*(pArray+j)){
+            *(pArray+j+1)=*(pArray+j);
+            j--;
+        }
+        *(pArray+j+1)=temp;
+    }
+    return 0;
 }
