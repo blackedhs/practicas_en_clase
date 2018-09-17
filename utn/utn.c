@@ -3,6 +3,7 @@
 #include <stdio_ext.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 static int getFloat(float*pBuffer);
 static int getString(char* bufferString,int limite);
@@ -238,17 +239,19 @@ int utn_ordenarArray(int *pArray,int limite,int flagMaxMin){
     }
     return retorno;
 }
-int utn_getLetras(char *pBuffer,int limite,int reintentos){
+int utn_getLetras(char *pBuffer,int limite,int reintentos,char* msj,char*msjError){
     int retorno=-1;
     char buffer[limite];
     if(pBuffer!=NULL && limite >0 && reintentos >=0){
         do{
             reintentos--;
-            if(getString(&buffer,limite)==0 && isLetras(buffer)==0){
+            printf("\n%s",msj);
+            if(getString(buffer,limite)==0 && isLetras(buffer)==0){
                 strncpy(pBuffer,buffer,limite);
                 retorno=0;
                 break;
-            }
+            }else
+                printf("\n%s",msjError);
         }while(reintentos>=0);
     }
     return retorno;
@@ -281,5 +284,16 @@ int ordenarInsertion(int* pArray,int limite){
         }
         *(pArray+j+1)=temp;
     }
+    return 0;
+}
+int printPersona(Persona *pBuffer){
+    printf("\tNombre\taltura\tedad:\n\n");
+    printf("\t%s\t%.2f\t%d",pBuffer->nombre,pBuffer->altura,pBuffer->edad);
+    return 0;
+}
+int utn_altaPersona(Persona* pPersona,int reintentos,int lenString,int min,int max){
+    utn_getLetras(&pPersona->nombre,lenString,reintentos,"Ingrese el nombre : ","\n***ERROR INTENTE NUEVAMENTE***");
+    utn_getEntero(&pPersona->edad,reintentos,"Ingrese la edad: ","Error intente nuevamente : ",min,max);
+    utn_getFloat(&pPersona->altura,reintentos,"Ingrese su altura: ","Error amiguito: ",0,3);
     return 0;
 }
