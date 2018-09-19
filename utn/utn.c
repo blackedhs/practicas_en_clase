@@ -297,3 +297,30 @@ int utn_altaPersona(Persona* pPersona,int reintentos,int lenString,int min,int m
     utn_getFloat(&pPersona->altura,reintentos,"Ingrese su altura: ","Error amiguito: ",0,3);
     return 0;
 }
+/**int utn_getEmail(char* pBuffer,int limite,int reintentos,char*msj,char* msjError){
+    int retorno=-1;
+    char buffer[limite];
+    if(pBuffer!=NULL && limite>0 && reintentos>=0 && msj!= NULL && msjError!=NULL){
+        do{
+            reintentos--;
+            printf("\n%s",msj);
+            if(getString(buffer,limite)==0 && isEmail(buffer)==0){
+                strncpy(pBuffer,buffer,limite);
+                retorno=0;
+                break;
+            }else
+                printf("\n%s",msjError);
+        }while(reintentos>=0);
+    }
+    return retorno;
+}
+static int isEmail(char* pBuffer){
+    int retorno=0;
+    int i=0;
+    if (pBuffer!=NULL){
+        do{
+            if(*(pBuffer+i))
+            i++;
+        }while(i<strlen(pBuffer));
+    }
+}*/
